@@ -1,5 +1,9 @@
 # Build gst-libav
-ARG GST_PLUGIN_LIBAV_REPO=https://gstreamer.freedesktop.org/src/gst-libav/gst-libav-${GST_VER}.tar.xz
+
+#ARG GSTLIBAV_VER=${GST_VER}
+#CVEs detected in gstlibav
+ARG GSTLIBAV_VER=1.8.1
+ARG GST_PLUGIN_LIBAV_REPO=https://gstreamer.freedesktop.org/src/gst-libav/gst-libav-${GSTLIBAV_VER}.tar.xz
 
 ifelse(index(DOCKER_IMAGE,ubuntu),-1,,
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y -q --no-install-recommends zlib1g-dev libssl-dev	&& \
@@ -11,7 +15,7 @@ RUN yum install -y -q zlib-devel openssl-devel
 )dnl
 
 RUN wget -O - ${GST_PLUGIN_LIBAV_REPO} | tar xJ && \
-    cd gst-libav-${GST_VER} && \
+    cd gst-libav-${GSTLIBAV_VER} && \
     export PKG_CONFIG_PATH="/usr/local/ifelse(index(DOCKER_IMAGE,ubuntu),-1,lib64,lib/x86_64-linux-gnu)/pkgconfig" && \
     ./autogen.sh \
         --prefix="/usr/local" \
