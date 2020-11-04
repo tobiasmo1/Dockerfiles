@@ -1,8 +1,7 @@
 # Build gst-libav
 
-#ARG GSTLIBAV_VER=${GST_VER}
-#CVEs detected in gstlibav
-ARG GSTLIBAV_VER=1.8.1
+# Allow overriding to build gstlibav using v1.16.3 (or v1.18.1)
+ARG GSTLIBAV_VER=${GST_VER}
 ARG GST_PLUGIN_LIBAV_REPO=https://gstreamer.freedesktop.org/src/gst-libav/gst-libav-${GSTLIBAV_VER}.tar.xz
 
 ifelse(index(DOCKER_IMAGE,ubuntu),-1,,
